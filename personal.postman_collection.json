@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "366ec4b5-ccd5-4d9f-9d50-12386b7db564",
+		"name": "personal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "timer get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post timer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hours\": 0,\n    \"minutes\": 1,\n    \"seconds\": 0,\n    \"url\":\"https://www.google.nl/\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/timers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"timers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "id get timer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/timers/17fae2e7-6af8-458d-bdbe-6108eed648c8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"timers",
+						"17fae2e7-6af8-458d-bdbe-6108eed648c8"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
