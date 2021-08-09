@@ -18,12 +18,9 @@ export const find = async (id: string): Promise<Timer | undefined> => timers.fin
 
 export const writeToFile = () => {
     const fileName = new Date().toString()
-    fs.writeFile(`${fileName}.json`, JSON.stringify(timers), (error) =>{
-        if (error) {
-            console.log('error during writeToFile',error)
-        }
-    })
-
+    fs.writeFileSync(`${fileName}.json`, JSON.stringify(timers))
+    console.log('writing files to disk')
+    console.log('Shutting down gracefully...')
 }
 
 export const create = async (timer: Omit<Timer, 'id'| 'createdAt'>) => {
