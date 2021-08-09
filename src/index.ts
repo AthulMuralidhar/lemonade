@@ -5,7 +5,10 @@ import cors from "cors";
 import helmet from "helmet";
 import {router} from "./timers/timer.router";
 import morgan from "morgan";
-import { writeToFile } from "./timers/timer.service";
+import {execute, writeToFile } from "./timers/timer.service";
+import * as fs from "fs";
+import moment from "moment";
+
 
 dotenv.config();
 
@@ -28,8 +31,31 @@ app.use("/", router);
 
 //server creation
 app.listen(PORT, () => {
+    console.log("Initializing")
+    const filenames = fs.readdirSync("./");
+
+    filenames.forEach((file) => {
+        if (file.includes('json') && file.includes('GMT')) {
+            const rawData = fs.readFileSync(file)
+            const data = JSON.parse(rawData.toString())
+
+            for (let timer of data) {
+                const now = moment()
+                let timeLeft = now.diff(moment(timer.createdAt).add({hours:timer.hours,minutes:timer.minutes, seconds: timer.seconds}))
+
+                if (timeLeft < 0) {
+                    execute(timer.id, true)
+                    console.log("executing previous timers...")
+                }
+            }
+
+        }
+    });
+
     console.log(`Listening on port ${PORT}`);
 });
+
+
 
 // Catches exit event
 process.on('exit', writeToFile.bind(null));

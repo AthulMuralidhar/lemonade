@@ -9,7 +9,7 @@ let timers: Timer[] = [{
     hours: 123,
     minutes: 452,
     seconds: 234,
-    url: 'test at toot.com',
+    url: 'http://www.google.com',
     createdAt: new Date()
 }]
 
@@ -38,14 +38,18 @@ export const create = async (timer: Omit<Timer, 'id'| 'createdAt'>) => {
 
 export const findAll = async (): Promise<Timer[]> => timers;
 
-export const execute = async (id: string) => {
+export const execute = async (id: string, override?: boolean) => {
     const timer = timers.find(item=> item.id === id) ?? {hours: 0, seconds: 0, minutes: 0, url: ''};
-    const timeOutInMS = timer?.hours * 3600000 + timer?.minutes * 60000 + timer?.seconds * 1000
+    let timeOutInMS = timer?.hours * 3600000 + timer?.minutes * 60000 + timer?.seconds * 1000
+
+    if (override) {
+        timeOutInMS = 5
+    }
 
     setTimeout(async () => {
         try {
             const response = await axios.get(timer.url);
-            console.log(response)
+            console.log("response sent")
         } catch (axiosErr) {
             console.log(axiosErr)
         }
