@@ -4,4 +4,5 @@ export interface Timer {
     minutes: number;
     seconds: number;
     url: string;
+    createdAt: Date;
 }
